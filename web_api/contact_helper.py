@@ -14,16 +14,31 @@ class ContactHelper:
     def open_contact_page(self):
         wd = self.app.wd
         # Open group page
-        wd.find_element_by_xpath('//*[@id="nav"]/ul/li[2]/a').click()
+        wd.find_element_by_xpath('//*[@id="nav"]/ul/li[1]/a').click()
 
-    def create(self, contact):
+    def create_contact(self, contact):
         wd = self.app.wd
         # Init contact creation
-        self.open_contact_page()
+        wd.find_element_by_xpath('//*[@id="nav"]/ul/li[2]/a').click()
         wd.find_element_by_name("address").send_keys(contact.address)
         wd.find_element_by_name("quickadd").click()
         wd.find_element_by_name("submit").click()
 
+    def delete_contact_by_number(self, number):
+        wd = self.app.wd
+        self.open_contact_page()
+        checkboxess = wd.find_elements_by_name("selected[]")
+        checkboxess[number].click()
+        wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
 
+    def delete_all_contacts(self):
+        wd = self.app.wd
+        self.open_contact_page()
+        wd.find_element_by_xpath('//*[@id="MassCB"]').click()
+        wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
 
-
+    def count_c(self):
+        wd = self.app.wd
+        self.open_contact_page()
+        checkboxes = wd.find_elements_by_name("selected[]")
+        return len(checkboxes)
