@@ -42,6 +42,13 @@ class GroupHelper:
         checkboxes[number].click()
         wd.find_element_by_name("delete").click()
 
+    def delete_groups(self):
+        wd = self.app.wd
+        wd.open_group_page()
+        checkboxes=wd.find_elements_by_name("selected[]")
+        while checkboxes != []:
+            wd.find_elements_by_name("selected[]")
+            wd.find_element_by_name("delete").click()
 
     def return_to_group_page(self):
         wd = self.app.wd
@@ -59,10 +66,10 @@ class GroupHelper:
             groups.append(Group(name=name,id=id))
         return groups
 
-    def modify_by_number(self, number, data_to_modify):
-        data_to_modify.name
-        data_to_modify.header
-        data_to_modify.footer
+    # def modify_by_number(self, number, data_to_modify):
+    #     data_to_modify.name
+    #     data_to_modify.header
+    #     data_to_modify.footer
 
     def count(self):
         wd = self.app.wd

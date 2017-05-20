@@ -5,7 +5,7 @@ from web_api.contact_helper import ContactHelper
 from web_api.group_helper import GroupHelper
 
 class AddressBookAPI:
-    def __init__(self, browser):
+    def __init__(self, browser, base_url):
         if browser == "chrome":
             self.wd = webdriver.Chrome()
         elif browser == "firefox":
@@ -14,11 +14,11 @@ class AddressBookAPI:
             self.wd = webdriver.Edge()
         else:
             raise ValueError("Unrecognized browser {}".format(browser))
-        self.wd = webdriver.Firefox()
+        # self.wd = webdriver.Firefox()
+        # self.wd.implicitly_wait(5)
+        # self.session = SessionHelper(self)
         self.wd.implicitly_wait(5)
-        self.session = SessionHelper(self)
-        self.wd = webdriver.Chrome()
-        self.wd.implicitly_wait(5)
+        self.base_url=base_url
         self.session=SessionHelper(self)
         self.contact=ContactHelper(self)
         self.group=GroupHelper(self)
@@ -27,7 +27,7 @@ class AddressBookAPI:
     def open_home_page(self):
         wd = self.wd
         # Open home page
-        wd.get("http://localhost:8888/addressbook/")
+        wd.get(self.base_url)
 
 
     def is_element_present(self, by, locator):
